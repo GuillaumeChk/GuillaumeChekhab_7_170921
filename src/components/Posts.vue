@@ -2,6 +2,7 @@
     <div class="container">
         <h3>Publications</h3>
         <button>Publier</button>
+        <AddPost @submit-post="$emit('add-new-post', newPost)" />
         <div class="container" :key="post.id" v-for="post in posts">
             <h5>{{ post.user }} :</h5>
             <p>{{ post.text }}</p>
@@ -10,12 +11,18 @@
 </template>
 
 <script>
-export default {
-    name: 'Posts',
-    props: {
-        posts: Array
+    import AddPost from './AddPost.vue'
+
+    export default {
+        name: 'Posts',
+        props: {
+            posts: Array
+        },
+        components: {
+            AddPost,
+        },
+        emits: ['add-new-post']
     }
-}
 </script>
 
 <style lang="scss" scoped>

@@ -2,7 +2,7 @@
   <img alt="Logo Grouporama" src="../public/icones/icon.svg">
   <h1>Grouporama</h1>
   <!-- <Connection /> -->
-  <Posts :posts="posts" />
+  <Posts :posts="posts" @add-new-post="addNewPost" />
 </template>
 
 <script>
@@ -18,6 +18,12 @@
     data() {
       return {
         posts: []
+      }
+    },
+    methods: {
+      addNewPost(newPost) {
+        console.log(newPost)
+        this.posts = [...this.posts, newPost]
       }
     },
     created() {
