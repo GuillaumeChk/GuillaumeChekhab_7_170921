@@ -1,18 +1,50 @@
 <template>
   <img alt="Logo Grouporama" src="../public/icones/icon.svg">
   <h1>Grouporama</h1>
-  <Connexion />
+  <!-- <Connection /> -->
+  <Posts :posts="posts" />
 </template>
 
-// <script>
-import Connexion from './components/Connexion.vue'
+<script>
+  // import Connection from './components/Connection.vue'
+  import Posts from './components/Posts.vue'
 
-export default {
-  name: 'App',
-  components: {
-    Connexion
+  export default {
+    name: 'App',
+    components: {
+      // Connection
+      Posts
+    },
+    data() {
+      return {
+        posts: []
+      }
+    },
+    created() {
+      this.posts = [
+        {
+          id: 1,
+          user: 'Jean',
+          text: 'texte',
+        },
+        {
+          id: 2,
+          user: 'Cyril',
+          text: 'grege',
+        },
+        {
+          id: 3,
+          user: 'Bob',
+          text: 'tgegregre u ehf uezfz fuez hf izehfeuhf eizuhfuez fez ghiuez ghfiez hfi heuz hexte',
+        },
+        {
+          id: 4,
+          user: 'Marcel',
+          text: 'texgrryeyeyreete',
+        },
+      ]
+    }
   }
-}
 </script>
 
 <style lang="scss">

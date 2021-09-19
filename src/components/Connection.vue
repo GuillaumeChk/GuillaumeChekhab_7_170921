@@ -17,12 +17,12 @@
 </template>
 
 <script>
-export default {
-    name: 'Connexion',
-    props: {
-        signOrLogIn: Boolean
+    export default {
+        name: 'Connection',
+        props: {
+            signOrLogIn: Boolean
+        }
     }
-}
 </script>
 
 <style lang="scss" scoped>
