@@ -1,22 +1,22 @@
 <template>
-  <img alt="Logo Grouporama" src="../public/icones/icon.svg">
-  <h1>Grouporama</h1>
-  <!-- <Connection /> -->
-  <Posts :posts="posts" @add-new-post="addNewPost" />
+  <img alt="Logo Grouporama" src="../public/icones/icon-above-font.svg">
+  <Connection v-if="showLoginPage"/>
+  <Posts v-else :posts="posts" @add-new-post="addNewPost" />
 </template>
 
 <script>
-  // import Connection from './components/Connection.vue'
+  import Connection from './components/Connection.vue'
   import Posts from './components/Posts.vue'
 
   export default {
     name: 'App',
     components: {
-      // Connection
+      Connection,
       Posts
     },
     data() {
       return {
+        showLoginPage: true,
         posts: []
       }
     },
@@ -59,11 +59,20 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
+    color: #D1515A;
+    // margin-top: 60px;
   }
-
   img {
-    max-width: 30%;
+    max-width: 50%;
+  }
+  input {
+    padding: 5px;
+  }
+  .btn {
+    background-color: #FFD7D7;
+    color: #D1515A;
+    border: 2px solid #D1515A;
+    border-radius: 5px;
+    margin-bottom: 10px;
   }
 </style>

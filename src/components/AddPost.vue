@@ -2,7 +2,7 @@
     <form @submit="onSubmit">
         <label for="text"></label>
         <input type="text" v-model="text" name="text" placeholder="Écrire ici">
-        <input type="submit" value="Envoyer">
+        <input class="btn" type="submit" value="Envoyer">
     </form>
 </template>
 
@@ -41,7 +41,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     form {
         padding: 15px;
     }
