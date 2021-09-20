@@ -23,21 +23,20 @@
                     return
                 }
 
-                const newPost = {
+                const post = {
                     id: Math.floor(Math.random() * 100000),
                     user: 'testUser',
-                    text: this.text,
+                    text: this.text
                 }
 
-                console.log(newPost)
+                console.log(post)
 
-                this.$emit('submit-post', newPost)
+                this.$emit('submit-post', post)
 
                 // Clear le champs
                 this.text = ''
             }
         }
-
     }
 </script>
 

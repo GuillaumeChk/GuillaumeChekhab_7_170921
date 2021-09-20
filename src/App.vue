@@ -1,7 +1,7 @@
 <template>
   <img alt="Logo Grouporama" src="../public/icones/icon-above-font.svg">
   <Connection v-if="showLoginPage"/>
-  <Posts v-else :posts="posts" @add-new-post="addNewPost" />
+  <Posts v-else :posts="posts" @add-post="addNewPost" @delete-post="deletePost"/>
 </template>
 
 <script>
@@ -16,14 +16,19 @@
     },
     data() {
       return {
-        showLoginPage: true,
+        showLoginPage: false,
         posts: []
       }
     },
     methods: {
-      addNewPost(newPost) {
-        console.log(newPost)
-        this.posts = [...this.posts, newPost]
+      addNewPost(post) {
+        console.log(post)
+        this.posts = [...this.posts, post]
+      },
+      deletePost(id) {
+        if(confirm('Supprimer ce commentaire ?')) {
+          console.log("supprimer " + id)
+        }
       }
     },
     created() {
@@ -54,6 +59,11 @@
 </script>
 
 <style lang="scss">
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
   #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;

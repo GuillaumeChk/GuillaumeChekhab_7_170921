@@ -4,12 +4,16 @@
             <h2>Publications</h2>
             <button @click="toggleAddPost">{{ btnTexte }}</button>
         </div>
-        <AddPost v-show="showAddPost" @submit-post="$emit('add-new-post', newPost)" />
-        <div class="container" :key="post.id" v-for="post in posts">
-            <h5>{{ post.user }} :</h5>
+        <AddPost v-show="showAddPost" @submit-post="addPost" />
+        <div class="post" :key="post.id" v-for="post in posts">
+            <h5>
+                {{ post.user }} :
+                <i @click="$emit('delete-post', post.id)" class="fas fa-times"></i>
+                </h5>
             <p>{{ post.text }}</p>
         </div>
     </div>
+    <button>Supprimer son compte</button>
 </template>
 
 <script>
@@ -38,18 +42,31 @@
                 else {
                     this.btnTexte = 'Publier'
                 }
+            },
+            addPost(post) {
+                this.$emit('add-post', post)
             }
         },
-        emits: ['add-new-post']
+        emits: ['add-post', 'delete-post']
     }
 </script>
 
 <style lang="scss" scoped>
-    .container {
+    .container, .post {
         border: 1px solid;
         border-radius: 5px;
         margin-left: 5px;
         margin-right: 5px;
+    }
+    .post {
+        text-align: left;
+        padding: 10px;
+        border: none;
+        background-color: #FFD7D7;
+        h5 {
+            color:#FD2D01;
+            margin-bottom: 5px;
+        }
     }
     button {
         width: auto;
@@ -80,5 +97,13 @@
     }
     h2 {
         color: #FD2D01;
+    }
+    h5 {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .fas {
+        color: red;
     }
 </style>
