@@ -17,41 +17,82 @@
     data() {
       return {
         showLoginPage: false,
-        posts: []
+        users: [],
+        posts: [],
+        comments: []
       }
     },
     methods: {
       addNewPost(post) {
-        console.log(post)
         this.posts = [...this.posts, post]
       },
       deletePost(id) {
-        if(confirm('Supprimer ce commentaire ?')) {
+        if(confirm('Supprimer cette publication ?')) {
           console.log("supprimer " + id)
+          // Supprimer la publi
+          this.posts = this.posts.filter((post) => post.id !== id)
+          // Supprimer également tous les commentaires !
         }
       }
     },
     created() {
+      this.users = [
+        {
+          name: 'Jean Dupont',
+          mail: 'jeand@mail.fr',
+          password: 'jeanjean1'
+        },
+        {
+          name: 'Bertrand Jacquard',
+          mail: 'bertj@mail.fr',
+          password: 'bertbert2'
+        },
+        {
+          name: 'Cyril Bob',
+          mail: 'cyrib@mail.fr',
+          password: 'cyricyri3'
+        }
+      ]
       this.posts = [
         {
           id: 1,
-          user: 'Jean',
-          text: 'texte',
+          user: 'Jean Dupont',
+          text: "texte",
         },
         {
           id: 2,
-          user: 'Cyril',
-          text: 'grege',
+          user: 'Bertrand Jacquard',
+          text: "grege",
         },
         {
           id: 3,
-          user: 'Bob',
-          text: 'tgegregre u ehf uezfz fuez hf izehfeuhf eizuhfuez fez ghiuez ghfiez hfi heuz hexte',
+          user: 'Cyril Bob',
+          text: "tgegregre u ehf uezfz fuez hf izehfeuhf eizuhfuez fez ghiuez ghfiez hfi heuz hexte",
         },
         {
           id: 4,
-          user: 'Marcel',
-          text: 'texgrryeyeyreete',
+          user: 'Jean Dupont',
+          text: "texgrryeyeyreete",
+        },
+      ]
+      this.comments = [
+        {
+          id: 1,
+          postId: 1,
+          user: 'Cyril Bob',
+          text: "ça va ?"
+        },
+        {
+          id: 2,
+          postId: 1,
+          user: 'Jean Dupont',
+          text: "peut-etre"
+        },
+        {
+          id: 3,
+          postId: 1,
+          user: 'Bertrand Jacquard',
+          text: "salut c'est moi Bertrand"
         },
       ]
     }

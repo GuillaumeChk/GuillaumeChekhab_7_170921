@@ -5,68 +5,58 @@
             <button @click="toggleAddPost">{{ btnTexte }}</button>
         </div>
         <AddPost v-show="showAddPost" @submit-post="addPost" />
-        <div class="post" :key="post.id" v-for="post in posts">
-            <h5>
-                {{ post.user }} :
-                <i @click="$emit('delete-post', post.id)" class="fas fa-times"></i>
-                </h5>
-            <p>{{ post.text }}</p>
+        <div :key="post.id" v-for="post in posts">
+            <Post @delete-post="deletePost" :post="post"/>
         </div>
     </div>
     <button>Supprimer son compte</button>
 </template>
 
 <script>
-    import AddPost from './AddPost.vue'
+import AddPost from './AddPost.vue'
+import Post from './Post.vue'
 
-    export default {
-        name: 'Posts',
-        props: {
-            posts: Array,
-        },
-        data() {
-            return {
-                showAddPost: false,
-                btnTexte: 'Publier'
+export default {
+    name: 'Posts',
+    props: {
+        posts: Array,
+    },
+    data() {
+        return {
+            showAddPost: false,
+            btnTexte: 'Publier'
+        }
+    },
+    components: {
+        Post,
+        AddPost,
+    },
+    methods: {
+        toggleAddPost() {
+            this.showAddPost = !this.showAddPost
+            if (this.showAddPost) {
+                this.btnTexte = 'Annuler'
+            }
+            else {
+                this.btnTexte = 'Publier'
             }
         },
-        components: {
-            AddPost,
+        addPost(post) {
+            this.$emit('add-post', post)
         },
-        methods: {
-            toggleAddPost() {
-                this.showAddPost = !this.showAddPost
-                if (this.showAddPost) {
-                    this.btnTexte = 'Annuler'
-                }
-                else {
-                    this.btnTexte = 'Publier'
-                }
-            },
-            addPost(post) {
-                this.$emit('add-post', post)
-            }
-        },
-        emits: ['add-post', 'delete-post']
-    }
+        deletePost(id) {
+            this.$emit('delete-post', id)
+        }
+    },
+    emits: ['add-post', 'delete-post']
+}
 </script>
 
 <style lang="scss" scoped>
-    .container, .post {
+    .container {
         border: 1px solid;
         border-radius: 5px;
-        margin-left: 5px;
-        margin-right: 5px;
-    }
-    .post {
-        text-align: left;
-        padding: 10px;
-        border: none;
-        background-color: #FFD7D7;
-        h5 {
-            color:#FD2D01;
-            margin-bottom: 5px;
-        }
+        margin: 10px;
     }
     button {
         width: auto;
@@ -76,7 +66,7 @@
         background: none;
         width: auto;
         margin-top: 5px;
-        margin-bottom: 20px;
+        // margin-bottom: 20px;
         border-radius: 10px;
         color: #FD2D01;
         border: 2px solid #FFD7D7;
@@ -84,26 +74,13 @@
             background-color: #FFD7D7;
         }
     }
-    div {
-        margin-bottom: 15px;
-    }
     .head {
+        margin-top: 10px;
         display: flex;
         justify-content:space-evenly;
         align-items: baseline;
     }
-    h5, p {
-        color: black;
-    }
     h2 {
         color: #FD2D01;
-    }
-    h5 {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .fas {
-        color: red;
     }
 </style>

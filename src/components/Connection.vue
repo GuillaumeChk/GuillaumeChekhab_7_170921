@@ -49,6 +49,7 @@
     .container {
         border: 1px solid;
         border-radius: 5px;
+        margin: 10px;
     }
     button {
         border: none;

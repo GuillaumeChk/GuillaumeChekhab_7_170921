@@ -23,13 +23,12 @@
                     return
                 }
 
+                // Créer l'objet post
                 const post = {
                     id: Math.floor(Math.random() * 100000),
                     user: 'testUser',
                     text: this.text
                 }
-
-                console.log(post)
 
                 this.$emit('submit-post', post)
 
