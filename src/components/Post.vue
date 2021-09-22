@@ -6,12 +6,14 @@
         </h5>
         <p>{{ post.text }}</p>
     </div>
+    <Reply @add-comment="addComment" :post="post" />
     <!-- Commentaires -->
-    <ShowComments @delete-comment="deleteComment" :comments="comments" :post="post" />
+    <Comments @delete-comment="deleteComment" :comments="comments" :post="post" />
 </template>
 
 <script>
-import ShowComments from './ShowComments.vue'
+import Comments from './Comments.vue'
+import Reply from './Reply.vue'
 
 export default {
     name: 'Post',
@@ -20,14 +22,18 @@ export default {
         comments: Array,
     },
     components: {
-        ShowComments
+        Comments,
+        Reply
     },
     methods: {
         deleteComment(id) {
             this.$emit('delete-comment', id)
-        }
+        },
+        addComment(comment) {
+            this.$emit('add-comment', comment)
+        },
     },
-    emits: ['delete-post','delete-comment']
+    emits: ['delete-post','delete-comment', 'add-comment']
 }
 </script>
 

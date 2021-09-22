@@ -1,7 +1,7 @@
 <template>
   <img alt="Logo Grouporama" src="../public/icones/icon-above-font.svg">
   <Connection v-if="showLoginPage"/>
-  <Posts v-else :posts="posts" :comments="comments" @add-post="addNewPost" @delete-post="deletePost" @delete-comment="deleteComment"/>
+  <Posts v-else :posts="posts" :comments="comments" @add-post="addNewPost" @add-comment="addNewComment" @delete-post="deletePost" @delete-comment="deleteComment"/>
 </template>
 
 <script>
@@ -33,6 +33,9 @@
           this.posts = this.posts.filter((post) => post.id !== id)
           // Supprimer également tous les commentaires !
         }
+      },
+      addNewComment(comment) {
+        this.comments = [...this.comments, comment]
       },
       deleteComment(id) {
         if(confirm('Supprimer ce commentaire ?')) {

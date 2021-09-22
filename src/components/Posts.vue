@@ -4,16 +4,18 @@
             <h2>Publications</h2>
             <button @click="toggleAddPost">{{ btnTexte }}</button>
         </div>
-        <AddPost v-show="showAddPost" @submit-post="addPost" />
+        <!-- publier -->
+        <SendPost v-show="showAddPost" @submit-post="addPost" />
+        <!-- liste des publications -->
         <div :key="post.id" v-for="post in posts">
-            <Post @delete-post="deletePost" @delete-comment="deleteComment" :post="post" :comments="comments"/>
+            <Post @add-comment="addComment" @delete-post="deletePost" @delete-comment="deleteComment" :post="post" :comments="comments"/>
         </div>
     </div>
     <button>Supprimer son compte</button>
 </template>
 
 <script>
-import AddPost from './AddPost.vue'
+import SendPost from './SendPost.vue'
 import Post from './Post.vue'
 
 export default {
@@ -30,7 +32,7 @@ export default {
     },
     components: {
         Post,
-        AddPost,
+        SendPost,
     },
     methods: {
         toggleAddPost() {
@@ -48,11 +50,14 @@ export default {
         deletePost(id) {
             this.$emit('delete-post', id)
         },
+        addComment(comment) {
+            this.$emit('add-comment', comment)
+        },
         deleteComment(id) {
             this.$emit('delete-comment', id)
         }
     },
-    emits: ['add-post', 'delete-post', 'delete-comment']
+    emits: ['add-post', 'delete-post', 'delete-comment', 'add-comment']
 }
 </script>
 

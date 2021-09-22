@@ -58,10 +58,10 @@ export default {
 @import "./src/scss/_variables.scss";
 
     .btn-show-comments {
-        display: flex;
+        // display: block;
         margin-left: 30px;
-        margin-right: 15px;
-        padding: 5px 10px 5px 10px;
+        // margin-right: 15px;
+        padding: 4px 10px 4px 10px;
         background: none;
         color: $color-accent;
         border: 2px solid $secondary-color;
