@@ -32,6 +32,9 @@ export default {
         },
         addReply(comment) {
             this.$emit('add-comment', comment)
+
+            // Fermer le champs d'écriture du message
+            this.toggleAddReply()
         },
     },
     emits: ['add-comment']
@@ -44,7 +47,7 @@ export default {
     button {
         // margin-left: 15px;
         margin-right: 30px;
-        padding: 4px 10px 4px 10px;
+        padding: 3px 6px 3px 6px;
         background: none;
         color: $color-accent;
         border: 2px solid $secondary-color;

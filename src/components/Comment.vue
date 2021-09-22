@@ -2,6 +2,7 @@
     <div class="comment" v-if="post.id === comment.postId">
         <h5>
             {{ comment.user }} a répondu :
+            <span>le {{ comment.date }} à {{ comment.hour }}</span>
             <i @click="$emit('delete-comment', comment.id)" class="fas fa-times"></i>
         </h5>
         <p>{{ comment.text }}</p>

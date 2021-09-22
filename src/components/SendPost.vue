@@ -23,11 +23,18 @@
                     return
                 }
 
+                // Formatage date et heure
+                const fullDate = new Date()
+                const date = fullDate.getUTCDate() + '.' + fullDate.getUTCMonth() + '.' + fullDate.getYear()
+                const hour = fullDate.getUTCHours() + ':' + fullDate.getUTCMinutes()
+
                 // Créer l'objet post
                 const post = {
                     id: Math.floor(Math.random() * 100000),
                     user: 'testUser',
-                    text: this.text
+                    text: this.text,
+                    date: date,
+                    hour: hour,
                 }
 
                 this.$emit('submit-post', post)

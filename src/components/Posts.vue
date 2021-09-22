@@ -11,7 +11,10 @@
             <Post @add-comment="addComment" @delete-post="deletePost" @delete-comment="deleteComment" :post="post" :comments="comments"/>
         </div>
     </div>
-    <button>Supprimer son compte</button>
+    <div class="otherButtons">
+        <button @click="onDisconnect" >Se déconnecter</button>
+        <button>Supprimer son compte</button>
+    </div>
 </template>
 
 <script>
@@ -46,6 +49,9 @@ export default {
         },
         addPost(post) {
             this.$emit('add-post', post)
+
+            // Fermer le champs d'écriture du message
+            this.toggleAddPost()
         },
         deletePost(id) {
             this.$emit('delete-post', id)
@@ -55,9 +61,12 @@ export default {
         },
         deleteComment(id) {
             this.$emit('delete-comment', id)
+        },
+        onDisconnect() {
+            this.$emit('disconnection')
         }
     },
-    emits: ['add-post', 'delete-post', 'delete-comment', 'add-comment']
+    emits: ['add-post', 'delete-post', 'delete-comment', 'add-comment', 'disconnection']
 }
 </script>
 
@@ -67,6 +76,7 @@ export default {
         border: 1px solid;
         border-radius: 5px;
         margin: 10px;
+        padding: 15px;
         // background-color: $primary-color;
     }
     button {
@@ -92,5 +102,9 @@ export default {
     }
     h2 {
         color: $color-accent;
+    }
+    .otherButtons {
+        display: flex;
+        justify-content: space-evenly;
     }
 </style>

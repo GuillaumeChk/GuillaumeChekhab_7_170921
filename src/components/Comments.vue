@@ -61,7 +61,7 @@ export default {
         // display: block;
         margin-left: 30px;
         // margin-right: 15px;
-        padding: 4px 10px 4px 10px;
+        padding:3px 6px 3px 6px;
         background: none;
         color: $color-accent;
         border: 2px solid $secondary-color;

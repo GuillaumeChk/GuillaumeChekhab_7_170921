@@ -1,7 +1,7 @@
 <template>
   <img alt="Logo Grouporama" src="../public/icones/icon-above-font.svg">
-  <Connection v-if="showLoginPage"/>
-  <Posts v-else :posts="posts" :comments="comments" @add-post="addNewPost" @add-comment="addNewComment" @delete-post="deletePost" @delete-comment="deleteComment"/>
+  <Connection v-if="showLoginPage" @go-to-posts="goToPosts" />
+  <Posts v-else :posts="posts" :comments="comments" @add-post="addNewPost" @add-comment="addNewComment" @delete-post="deletePost" @delete-comment="deleteComment"  @disconnection="toDisconnect"/>
 </template>
 
 <script>
@@ -16,7 +16,7 @@
     },
     data() {
       return {
-        showLoginPage: false,
+        showLoginPage: true,
         users: [],
         posts: [],
         comments: []
@@ -44,6 +44,12 @@
           this.comments = this.comments.filter((comment) => comment.id !== id)
           // Supprimer également tous les commentaires !
         }
+      },
+      goToPosts() {
+        this.showLoginPage = false
+      },
+      toDisconnect() {
+        this.showLoginPage = true
       }
     },
     created() {
@@ -69,21 +75,29 @@
           id: 1,
           user: 'Jean Dupont',
           text: "texte",
+          date: '21.09.21',
+          hour: '08:05'
         },
         {
           id: 2,
           user: 'Bertrand Jacquard',
           text: "grege",
+          date: '21.09.21',
+          hour: '14:46'
         },
         {
           id: 3,
           user: 'Cyril Bob',
           text: "tgegregre u ehf uezfz fuez hf izehfeuhf eizuhfuez fez ghiuez ghfiez hfi heuz hexte",
+          date: '21.09.21',
+          hour: '09:01'
         },
         {
           id: 4,
           user: 'Jean Dupont',
           text: "texgrryeyeyreete",
+          date: '21.09.21',
+          hour: '14:46'
         },
       ]
       this.comments = [
@@ -91,31 +105,41 @@
           id: 1,
           postId: 1,
           user: 'Cyril Bob',
-          text: "ça va ?"
+          text: "ça va ?",
+          date: '21.09.21',
+          hour: '14:46'
         },
         {
           id: 2,
           postId: 1,
           user: 'Jean Dupont',
-          text: "peut-etre"
+          text: "peut-etre",
+          date: '21.09.21',
+          hour: '15:46'
         },
         {
           id: 3,
           postId: 1,
           user: 'Bertrand Jacquard',
-          text: "salut c'est moi Bertrand"
+          text: "salut c'est moi Bertrand",
+          date: '21.09.21',
+          hour: '16:46'
         },
         {
           id: 5,
           postId: 3,
           user: 'Cyril Bob',
-          text: "ok"
+          text: "ok",
+          date: '22.09.21',
+          hour: '14:46'
         },
         {
           id: 4,
           postId: 3,
           user: 'Bertrand Jacquard',
-          text: "oui"
+          text: "oui",
+          date: '22.09.21',
+          hour: '18:46'
         },
         
       ]

@@ -2,6 +2,7 @@
     <div class="post">
         <h5>
             {{ post.user }} a dit :
+            <span>le {{ post.date }} à {{ post.hour }}</span>
             <i @click="$emit('delete-post', post.id)" class="fas fa-times"></i>
         </h5>
         <p>{{ post.text }}</p>
@@ -46,7 +47,7 @@ export default {
         padding: 10px;
         border: none;
         background-color: $secondary-color;
-        margin: 15px;
+        margin-top: 7px;
         margin-bottom: 0;
         h5 {
             color:$color-accent;
