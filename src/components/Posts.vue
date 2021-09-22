@@ -6,7 +6,7 @@
         </div>
         <AddPost v-show="showAddPost" @submit-post="addPost" />
         <div :key="post.id" v-for="post in posts">
-            <Post @delete-post="deletePost" :post="post"/>
+            <Post @delete-post="deletePost" @delete-comment="deleteComment" :post="post" :comments="comments"/>
         </div>
     </div>
     <button>Supprimer son compte</button>
@@ -20,6 +20,7 @@ export default {
     name: 'Posts',
     props: {
         posts: Array,
+        comments: Array
     },
     data() {
         return {
@@ -46,17 +47,22 @@ export default {
         },
         deletePost(id) {
             this.$emit('delete-post', id)
+        },
+        deleteComment(id) {
+            this.$emit('delete-comment', id)
         }
     },
-    emits: ['add-post', 'delete-post']
+    emits: ['add-post', 'delete-post', 'delete-comment']
 }
 </script>
 
 <style lang="scss" scoped>
+@import "./src/scss/_variables.scss";
     .container {
         border: 1px solid;
         border-radius: 5px;
         margin: 10px;
+        // background-color: $primary-color;
     }
     button {
         width: auto;
@@ -66,12 +72,11 @@ export default {
         background: none;
         width: auto;
         margin-top: 5px;
-        // margin-bottom: 20px;
         border-radius: 10px;
-        color: #FD2D01;
-        border: 2px solid #FFD7D7;
+        color: $color-accent;
+        border: 2px solid $secondary-color;
         &:hover {
-            background-color: #FFD7D7;
+            background-color: $secondary-color;
         }
     }
     .head {
@@ -81,6 +86,6 @@ export default {
         align-items: baseline;
     }
     h2 {
-        color: #FD2D01;
+        color: $color-accent;
     }
 </style>

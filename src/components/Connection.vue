@@ -46,9 +46,11 @@
 </script>
 
 <style lang="scss" scoped>
+@import "./src/scss/_variables.scss";
     .container {
         border: 1px solid;
         border-radius: 5px;
+        // background-color: $primary-color;
         margin: 10px;
     }
     button {
@@ -61,13 +63,13 @@
         margin-bottom: 20px;
         border-radius: 10px;
         &:hover {
-            background-color: #FFD7D7;
-            color: #FD2D01;
+            background-color: $secondary-color;
+            color: $color-accent;
         }
     }
     .selected {
-        color: #FD2D01;
-        border-bottom: 2px solid #FD2D01;
+        color: $color-accent;
+        border-bottom: 2px solid $color-accent;
     }
     div {
         margin-bottom: 15px;

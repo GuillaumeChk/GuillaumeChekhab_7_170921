@@ -1,7 +1,7 @@
 <template>
     <form @submit="onSubmit">
         <label for="text"></label>
-        <input type="text" v-model="text" name="text" placeholder="Écrire ici">
+        <input type="text" v-model="text" name="text" placeholder="Votre message ici">
         <input class="btn" type="submit" value="Envoyer">
     </form>
 </template>
@@ -40,6 +40,7 @@
 </script>
 
 <style lang="scss" scoped>
+@import "./src/scss/_variables.scss";
     form {
         padding: 15px;
     }

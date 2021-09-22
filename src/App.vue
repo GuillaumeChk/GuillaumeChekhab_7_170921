@@ -1,7 +1,7 @@
 <template>
   <img alt="Logo Grouporama" src="../public/icones/icon-above-font.svg">
   <Connection v-if="showLoginPage"/>
-  <Posts v-else :posts="posts" @add-post="addNewPost" @delete-post="deletePost"/>
+  <Posts v-else :posts="posts" :comments="comments" @add-post="addNewPost" @delete-post="deletePost" @delete-comment="deleteComment"/>
 </template>
 
 <script>
@@ -31,6 +31,14 @@
           console.log("supprimer " + id)
           // Supprimer la publi
           this.posts = this.posts.filter((post) => post.id !== id)
+          // Supprimer également tous les commentaires !
+        }
+      },
+      deleteComment(id) {
+        if(confirm('Supprimer ce commentaire ?')) {
+          console.log("supprimer " + id)
+          // Supprimer la publi
+          this.comments = this.comments.filter((comment) => comment.id !== id)
           // Supprimer également tous les commentaires !
         }
       }
@@ -94,12 +102,26 @@
           user: 'Bertrand Jacquard',
           text: "salut c'est moi Bertrand"
         },
+        {
+          id: 5,
+          postId: 3,
+          user: 'Cyril Bob',
+          text: "ok"
+        },
+        {
+          id: 4,
+          postId: 3,
+          user: 'Bertrand Jacquard',
+          text: "oui"
+        },
+        
       ]
     }
   }
 </script>
 
 <style lang="scss">
+@import "./scss/_variables.scss";
   * {
     box-sizing: border-box;
     margin: 0;
@@ -110,7 +132,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #D1515A;
+    color: $primary-color;
     // margin-top: 60px;
   }
   img {
@@ -120,9 +142,9 @@
     padding: 5px;
   }
   .btn {
-    background-color: #FFD7D7;
-    color: #D1515A;
-    border: 2px solid #D1515A;
+    background-color: $secondary-color;
+    color: $primary-color;
+    border: 2px solid $primary-color;
     border-radius: 5px;
     margin-bottom: 10px;
   }

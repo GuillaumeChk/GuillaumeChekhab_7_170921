@@ -1,19 +1,17 @@
 <template>
     <div class="post">
         <h5>
-            {{ post.user }} :
+            {{ post.user }} a dit :
             <i @click="$emit('delete-post', post.id)" class="fas fa-times"></i>
         </h5>
         <p>{{ post.text }}</p>
     </div>
-    <!-- Commentaires ici ? -->
-    <div :key="comment.id" v-for="comment in comments">
-        <Comment :comment="comment" />
-    </div>
+    <!-- Commentaires -->
+    <ShowComments @delete-comment="deleteComment" :comments="comments" :post="post" />
 </template>
 
 <script>
-import Comment from './Comment.vue'
+import ShowComments from './ShowComments.vue'
 
 export default {
     name: 'Post',
@@ -22,24 +20,30 @@ export default {
         comments: Array,
     },
     components: {
-        Comment
+        ShowComments
     },
-    emits: ['delete-post']
+    methods: {
+        deleteComment(id) {
+            this.$emit('delete-comment', id)
+        }
+    },
+    emits: ['delete-post','delete-comment']
 }
 </script>
 
 <style lang="scss" scoped>
+@import "./src/scss/_variables.scss";
     .post {
         border: 1px solid;
         border-radius: 5px;
         text-align: left;
         padding: 10px;
         border: none;
-        background-color: #FFD7D7;
+        background-color: $secondary-color;
         margin: 15px;
         margin-bottom: 0;
         h5 {
-            color:#FD2D01;
+            color:$color-accent;
             margin-bottom: 5px;
         }
     }
@@ -52,22 +56,6 @@ export default {
         justify-content: space-between;
     }
     .fas {
-        color: red;
-    }
-    .comment {
-        text-align: left;
-        width: 100%;
-        margin-left: 30px;
-        button {
-            padding: 3px;
-            padding-left: 10px;
-            padding-right: 10px;
-            background-color: white;
-            color: #FD2D01;
-            border: 2px solid #FFD7D7;
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-            border-top: none;
-        }
+        color: $color-accent;
     }
 </style>
