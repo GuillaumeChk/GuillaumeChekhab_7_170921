@@ -16,7 +16,7 @@
     },
     data() {
       return {
-        showLoginPage: true,
+        showLoginPage: false,
         users: [],
         posts: [],
         comments: []
@@ -50,99 +50,27 @@
       },
       toDisconnect() {
         this.showLoginPage = true
-      }
+      },
+      async fetchPosts() {
+        const res = await fetch('http://localhost:3000/api/posts')
+        const data = await res.json()
+        return data
+      },
+      async fetchComments() {
+        const res = await fetch('http://localhost:3000/api/comments')
+        const data = await res.json()
+        return data
+      },
+      async fetchUsers() {
+        const res = await fetch('http://localhost:3000/api/users')
+        const data = await res.json()
+        return data
+      },
     },
-    created() {
-      this.users = [
-        {
-          name: 'Jean Dupont',
-          mail: 'jeand@mail.fr',
-          password: 'jeanjean1'
-        },
-        {
-          name: 'Bertrand Jacquard',
-          mail: 'bertj@mail.fr',
-          password: 'bertbert2'
-        },
-        {
-          name: 'Cyril Bob',
-          mail: 'cyrib@mail.fr',
-          password: 'cyricyri3'
-        }
-      ]
-      this.posts = [
-        {
-          id: 1,
-          user: 'Jean Dupont',
-          text: "texte",
-          date: '21.09.21',
-          hour: '08:05'
-        },
-        {
-          id: 2,
-          user: 'Bertrand Jacquard',
-          text: "grege",
-          date: '21.09.21',
-          hour: '14:46'
-        },
-        {
-          id: 3,
-          user: 'Cyril Bob',
-          text: "tgegregre u ehf uezfz fuez hf izehfeuhf eizuhfuez fez ghiuez ghfiez hfi heuz hexte",
-          date: '21.09.21',
-          hour: '09:01'
-        },
-        {
-          id: 4,
-          user: 'Jean Dupont',
-          text: "texgrryeyeyreete",
-          date: '21.09.21',
-          hour: '14:46'
-        },
-      ]
-      this.comments = [
-        {
-          id: 1,
-          postId: 1,
-          user: 'Cyril Bob',
-          text: "ça va ?",
-          date: '21.09.21',
-          hour: '14:46'
-        },
-        {
-          id: 2,
-          postId: 1,
-          user: 'Jean Dupont',
-          text: "peut-etre",
-          date: '21.09.21',
-          hour: '15:46'
-        },
-        {
-          id: 3,
-          postId: 1,
-          user: 'Bertrand Jacquard',
-          text: "salut c'est moi Bertrand",
-          date: '21.09.21',
-          hour: '16:46'
-        },
-        {
-          id: 5,
-          postId: 3,
-          user: 'Cyril Bob',
-          text: "ok",
-          date: '22.09.21',
-          hour: '14:46'
-        },
-        {
-          id: 4,
-          postId: 3,
-          user: 'Bertrand Jacquard',
-          text: "oui",
-          date: '22.09.21',
-          hour: '18:46'
-        },
-        
-      ]
+    async created() {
+      this.users = await this.fetchUsers()
+      this.posts = await this.fetchPosts()
+      this.comments = await this.fetchComments()
     }
   }
 </script>

@@ -10,7 +10,7 @@
             </div>
             <div>
                 <label for="">Mot de passe : </label>
-                <input type="text" name="password" pattern="^(?=.*[A-Za-z])(?=.*[0-9])([A-Za-z0-9]){8,}$" oninvalid="setCustomValidity('Veuillez entrer au moins 8 caractères dont au moins 1 chiffre.')" required/>
+                <input type="password" name="password" pattern="^(?=.*[A-Za-z])(?=.*[0-9])([A-Za-z0-9]){8,}$" oninvalid="setCustomValidity('Veuillez entrer au moins 8 caractères dont au moins 1 chiffre.')" required/>
             </div>
             <input class="btn" type="submit" value="Valider">
         </form>
@@ -30,7 +30,7 @@
             </div>
             <div>
                 <label for="">Mot de passe : </label>
-                <input type="text" name="password" pattern="^(?=.*[A-Za-z])(?=.*[0-9])([A-Za-z0-9]){8,}$" oninvalid="setCustomValidity('Veuillez entrer au moins 8 caractères dont au moins 1 chiffre.')" required/>
+                <input type="password" name="password" pattern="^(?=.*[A-Za-z])(?=.*[0-9])([A-Za-z0-9]){8,}$" oninvalid="setCustomValidity('Veuillez entrer au moins 8 caractères dont au moins 1 chiffre.')" required/>
             </div>
             <input class="btn" type="submit" value="Valider">
         </form>
