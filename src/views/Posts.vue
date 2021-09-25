@@ -18,19 +18,17 @@
 </template>
 
 <script>
-import SendPost from './SendPost.vue'
-import Post from './Post.vue'
+import SendPost from '../components/SendPost.vue'
+import Post from '../components/Post.vue'
 
 export default {
     name: 'Posts',
-    props: {
-        posts: Array,
-        comments: Array
-    },
     data() {
         return {
             showAddPost: false,
-            btnTexte: 'Publier'
+            btnTexte: 'Publier',
+            posts: [],
+            comments: []
         }
     },
     components: {
@@ -47,26 +45,59 @@ export default {
                 this.btnTexte = 'Publier'
             }
         },
-        addPost(post) {
-            this.$emit('add-post', post)
+      async addPost(post) {
+        await fetch('http://localhost:3000/api/posts', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify(post)
+        })
+      },
+      async deletePost(id) {
+        if(confirm('Supprimer cette publication ?')) {
+          await fetch(`http://localhost:3000/api/posts/${id}`, {
+            method: 'DELETE',
+          })
 
-            // Fermer le champs d'écriture du message
-            this.toggleAddPost()
-        },
-        deletePost(id) {
-            this.$emit('delete-post', id)
-        },
-        addComment(comment) {
-            this.$emit('add-comment', comment)
-        },
-        deleteComment(id) {
-            this.$emit('delete-comment', id)
-        },
-        onDisconnect() {
-            this.$emit('disconnection')
+          // Cela supprime également tous les commentaires du post
+
+        }
+      },
+      async addComment(comment) {
+        await fetch('http://localhost:3000/api/comments', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify(comment)
+        })
+      },
+      async deleteComment(id) {
+        if(confirm('Supprimer ce commentaire ?')) {
+          await fetch(`http://localhost:3000/api/comments/${id}`, {
+            method: 'DELETE',
+          })
+        }
+      },
+      async fetchPosts() {
+        const res = await fetch('http://localhost:3000/api/posts')
+        const data = await res.json()
+        return data
+      },
+      async fetchComments() {
+        const res = await fetch('http://localhost:3000/api/comments')
+        const data = await res.json()
+        return data
+      },
+      onDisconnect() {
+            this.$router.push("/")
         }
     },
-    emits: ['add-post', 'delete-post', 'delete-comment', 'add-comment', 'disconnection']
+    async created() {
+      this.posts = await this.fetchPosts()
+      this.comments = await this.fetchComments()
+    }
 }
 </script>
 

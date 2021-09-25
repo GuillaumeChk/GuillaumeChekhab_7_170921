@@ -43,6 +43,7 @@
         data() {
             return {
                 loggingIn: true,
+                users: []
             }
         },
         methods: {
@@ -53,16 +54,23 @@
                 e.preventDefault()
 
                 // Afficher les publications si connexion ok
-                this.$emit('go-to-posts')
+                this.$router.push("/posts")
             },
             onRegister(e) {
                 e.preventDefault()
 
                 // Afficher les publications si connexion ok
-                this.$emit('go-to-posts')
-            }
+                this.$router.push("/posts")
+            },
+            async fetchUsers() {
+                const res = await fetch('http://localhost:3000/api/users')
+                const data = await res.json()
+                return data
+            },
         },
-        emits: ['go-to-posts']
+        async created() {
+            this.users = await this.fetchUsers()
+        }
     }
 </script>
 

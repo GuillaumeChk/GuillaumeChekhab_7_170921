@@ -26,10 +26,8 @@
                     return
                 }
 
-                // Formatage date et heure
-                const fullDate = new Date()
-                const date = fullDate.getUTCDate() + '.' + fullDate.getUTCMonth() + '.' + fullDate.getYear()
-                const hour = fullDate.getUTCHours() + ':' + fullDate.getUTCMinutes()
+                let date = new Intl.DateTimeFormat("fr" , {dateStyle: "short"});
+                let time = new Intl.DateTimeFormat("fr" , {timeStyle: "short"});
 
                 // Créer l'objet post
                 const comment = {
@@ -37,8 +35,8 @@
                     postId: this.id,
                     user: 'testUser',
                     text: this.text,
-                    date: date,
-                    hour: hour,
+                    date: date.format(Date.now()),
+                    hour: time.format(Date.now()),
                 }
 
                 this.$emit('submit-comment', comment)
