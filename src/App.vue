@@ -22,7 +22,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: $primary-color;
+    color: $color-accent;
     // margin-top: 60px;
   }
   img {
@@ -32,10 +32,14 @@
     padding: 5px;
   }
   .btn {
-    background-color: $secondary-color;
+    background-color: white;
     color: $primary-color;
     border: 2px solid $primary-color;
     border-radius: 5px;
     margin-bottom: 10px;
+    &:hover {
+      background-color: $primary-color;
+      color: white;
+    }
   }
 </style>

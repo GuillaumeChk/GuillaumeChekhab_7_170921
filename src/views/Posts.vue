@@ -8,7 +8,7 @@
         <SendPost v-show="showAddPost" @submit-post="addPost" />
         <!-- liste des publications -->
         <div :key="post.id" v-for="post in posts">
-            <Post @add-comment="addComment" @delete-post="deletePost" @delete-comment="deleteComment" :post="post" :comments="comments"/>
+            <Post @add-comment="addComment" @delete-post="deletePost" @delete-comment="deleteComment" :post="post" :comments="comments" :user="user"/>
         </div>
     </div>
     <div class="otherButtons">
@@ -23,12 +23,18 @@ import Post from '../components/Post.vue'
 
 export default {
     name: 'Posts',
+    // props: {
+      
+    //   },
     data() {
-        return {
-            showAddPost: false,
+      return {
+        showAddPost: false,
             btnTexte: 'Publier',
             posts: [],
-            comments: []
+            comments: [],
+            userName: '',
+            token: '',
+            user: Object,
         }
     },
     components: {
@@ -45,19 +51,47 @@ export default {
                 this.btnTexte = 'Publier'
             }
         },
-      async addPost(post) {
-        await fetch('http://localhost:3000/api/posts', {
+      async addPost(object) {
+        // ajouter le créateur
+        const post = {
+          ...object.post,
+          user: this.userName
+        }
+        
+        // console.log("post.text : " + post.text)
+        // console.log("post : " + post)
+
+        let formData = new FormData();
+        formData.append('post', post.text)
+        formData.append('image', object.image)
+
+        // console.log du formData
+        for(var pair of formData.entries()) {
+          console.log(pair[0]+ ', '+ pair[1]);
+        }
+
+        const res = await fetch('http://localhost:3000/api/posts', {
           method: 'POST',
           headers: {
-            'Content-type': 'application/json',
+            // 'Content-type': 'application/json',
+            Authorization: 'Bearer ' + this.token
           },
-          body: JSON.stringify(post)
+          body: formData
         })
+
+        console.log(res)
+
+        // mis à jour publications posts []
+
       },
       async deletePost(id) {
         if(confirm('Supprimer cette publication ?')) {
           await fetch(`http://localhost:3000/api/posts/${id}`, {
             method: 'DELETE',
+            headers: {
+              'Content-type': 'application/json',
+              Authorization: 'Bearer ' + this.token
+            }
           })
 
           // Cela supprime également tous les commentaires du post
@@ -65,10 +99,15 @@ export default {
         }
       },
       async addComment(comment) {
+        comment = {
+          ...comment,
+          user: this.userName
+        }
         await fetch('http://localhost:3000/api/comments', {
           method: 'POST',
           headers: {
             'Content-type': 'application/json',
+            Authorization: 'Bearer ' + this.token
           },
           body: JSON.stringify(comment)
         })
@@ -77,24 +116,45 @@ export default {
         if(confirm('Supprimer ce commentaire ?')) {
           await fetch(`http://localhost:3000/api/comments/${id}`, {
             method: 'DELETE',
+            headers: {
+              'Content-type': 'application/json',
+              Authorization: 'Bearer ' + this.token
+            }
           })
         }
       },
       async fetchPosts() {
-        const res = await fetch('http://localhost:3000/api/posts')
+        const res = await fetch('http://localhost:3000/api/posts', {
+          method: 'GET',
+          headers: {
+            'Content-type': 'application/json',
+            Authorization: 'Bearer ' + this.token
+          }
+        })
         const data = await res.json()
         return data
       },
       async fetchComments() {
-        const res = await fetch('http://localhost:3000/api/comments')
+        const res = await fetch('http://localhost:3000/api/comments', {
+          method: 'GET',
+          headers: {
+            'Content-type': 'application/json',
+            Authorization: 'Bearer ' + this.token
+          }
+        })
         const data = await res.json()
         return data
       },
       onDisconnect() {
             this.$router.push("/")
-        }
+      }
     },
     async created() {
+      // récupère le nom d'utilisateur depuis la page Connection (grace à la clef primaire mail de User)
+      this.userName = this.$route.params.userName
+      // et le token d'authentification
+      this.token = this.$route.params.token
+
       this.posts = await this.fetchPosts()
       this.comments = await this.fetchComments()
     }
@@ -104,8 +164,8 @@ export default {
 <style lang="scss" scoped>
 @import "./src/scss/_variables.scss";
     .container {
-        border: 1px solid;
-        border-radius: 5px;
+        border: 2px solid;
+        border-radius: 10px;
         margin: 10px;
         padding: 15px;
         // background-color: $primary-color;

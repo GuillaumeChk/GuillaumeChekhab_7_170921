@@ -31,9 +31,8 @@
 
                 // Créer l'objet post
                 const comment = {
-                    id: Math.floor(Math.random() * 100000),
+                    id: 1, // sera supprimé puis auto-incrémenté
                     postId: this.id,
-                    user: 'testUser',
                     text: this.text,
                     date: date.format(Date.now()),
                     hour: time.format(Date.now()),

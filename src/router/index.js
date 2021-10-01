@@ -11,7 +11,12 @@ const routes = [
     {
         path: '/posts',
         name: 'Posts',
-        component: Posts
+        component: Posts,
+        beforeEnter: (to, from, next) => {
+            // ?
+
+            next()
+        }
     }
 ]
 

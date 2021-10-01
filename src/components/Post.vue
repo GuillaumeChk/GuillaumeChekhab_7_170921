@@ -3,7 +3,7 @@
         <h5>
             {{ post.user }} a dit :
             <span>le {{ post.date }} à {{ post.hour }}</span>
-            <i @click="$emit('delete-post', post.id)" class="fas fa-times"></i>
+            <i v-show="canDelete" @click="$emit('delete-post', post.id)" class="fas fa-times"></i>
         </h5>
         <p>{{ post.text }}</p>
     </div>
@@ -21,6 +21,13 @@ export default {
     props: {
         post: Object,
         comments: Array,
+        
+    },
+    data() {
+        return {
+            canDelete: false,
+            user: Object,
+        }
     },
     components: {
         Comments,
@@ -33,6 +40,11 @@ export default {
         addComment(comment) {
             this.$emit('add-comment', comment)
         },
+    },
+    async created() {
+        if (this.post.user === this.user.userName || this.user.isAdmin) { // est admin ou le créateur du post || post.user
+            this.canDelete = true
+        }
     },
     emits: ['delete-post','delete-comment', 'add-comment']
 }
@@ -47,7 +59,7 @@ export default {
         padding: 10px;
         border: none;
         background-color: $secondary-color;
-        margin-top: 7px;
+        margin-top: 12px;
         margin-bottom: 0;
         h5 {
             color:$color-accent;
@@ -63,6 +75,6 @@ export default {
         justify-content: space-between;
     }
     .fas {
-        color: $color-accent;
+        color: red;
     }
 </style>
